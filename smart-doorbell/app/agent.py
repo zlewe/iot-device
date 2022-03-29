@@ -45,7 +45,7 @@ def getSerial():
 		f=open('/proc/cpuinfo','r')
 		for line in f:
 			if line[0:6]=='Serial':
-				serial=line[18:26]
+				serial=line[18:25]
 				break
 		f.close()
 	except:
@@ -58,7 +58,8 @@ def ffmpeg():
 '-f','v4l2','-i','/dev/video0','-c:v','libx264','-pix_fmt','yuv420p',
 '-preset','ultrafast','-g','10','-b:v','100k','-bufsize','512k',
 '-threads','2','-qscale','3','-b:a','96k','-r','10','-s','640x360',
-'-f','flv',f'{rtmp_server}{serial}'])
+'-f','flv',f'{rtmp_server}{serial}'], stdout=subprocess.DEVNULL,
+    stderr=subprocess.STDOUT)
 
 locked = 1
 button_pin=16
