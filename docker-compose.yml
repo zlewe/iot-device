@@ -1,13 +1,13 @@
-version: '2'
+version: '2.1'
 services:
         smart-doorbell:
                 build: ./smart-doorbell
                 privileged: true
                 restart: always
-                network_mode: "host"
-                labels:
-                        io.balena.features.kernel-modules: '1'
                 healthcheck:
                         test: ["CMD", "python3 /usr/src/app/watchdog.py -t -n 5"]
                         interval: 30s
                         retries: 3
+                network_mode: "host"
+                labels:
+                        io.balena.features.kernel-modules: '1'
