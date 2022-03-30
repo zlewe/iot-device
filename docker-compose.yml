@@ -7,3 +7,7 @@ services:
                 network_mode: "host"
                 labels:
                         io.balena.features.kernel-modules: '1'
+                healthcheck:
+                        test: ["CMD", "python3 /usr/src/app/watchdog.py -t -n 5"]
+                        interval: 30s
+                        retries: 3

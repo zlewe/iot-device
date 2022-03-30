@@ -7,6 +7,7 @@ import json
 import RPi.GPIO as GPIO
 from time import sleep
 from datetime import datetime
+from watchdog import Watchdog
 
 def lockup():
     global locked,led_pin,last_lock_time
@@ -76,7 +77,7 @@ refresh_token = ''
 last_lock_time=datetime.now()
 
 if __name__ == '__main__':
-    
+
     serial = getSerial()
     print(f'#####The serial number is {serial}#####')
     
@@ -144,8 +145,12 @@ if __name__ == '__main__':
     GPIO.setup(led_pin, GPIO.OUT)
     GPIO.output(led_pin, GPIO.HIGH)
     
+    wd = Watchdog()
     count = 0
     while True:
+        # WATCHDOG
+        wd.write()
+
         mclient.loop()
         
         count+=1
